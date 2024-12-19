@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head th:replace="fragments :: html_head">
+    <meta charset="UTF-8">
+    <title>Evcil Hayvan Listesi</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+          crossorigin="anonymous">
+</head>
+<body>
+<div th:replace="fragments :: menu"></div>
+
+<hr>
+
+<br><br>
+<h3 style="text-align: center; padding-top: 12px; padding-bottom: 3px">Evcil Hayvan Bilgileri</h3><br>
+    <div class="container" >
+            <table class="table table-hover "  style="background-color: ghostwhite">
+                <thead >
+                <tr class="table-active">
+                    <th scope="col">id</th>
+                    <th scope="col">Ad</th>
+                    <th scope="col">Cins</th>
+                    <th scope="col">Tür</th>
+                    <th scope="col">Cinsiyet</th>
+                    <th scope="col">Yaş</th>
+                    <th scope="col">Sağlık Durumu</th>
+
+
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="pet : ${pets}">
+                    <td th:text="${pets.id}"></td>
+                    <td th:text="${pets.name}"></td>
+                    <td th:text="${pets.species}"></td>
+                    <td th:text="${pets.breed}"></td>
+                    <td th:text="${pets.gender}"></td>
+                    <td th:text="${pets.age}"></td>
+                    <td th:text="${pets.statement}"></td>
+
+                </tr>
+
+                </tbody>
+            </table>
+
+    </div>
+<br>
+<br>
+<h3 style="text-align: center; padding-top: 12px; padding-bottom: 3px">Hayvan Sahibi Bilgileri</h3><br>
+
+
+<div class="container">
+    <div><input type="hidden" th:field="*{id}" th:value="${pets.petOwner.id}"></div>
+    <table class="table table-hover "  style="background-color: ghostwhite">
+        <thead >
+        <tr class="table-active">
+            <th scope="col">id</th>
+            <th scope="col">Ad</th>
+            <th scope="col">Soyad</th>
+            <th scope="col">Telefon</th>
+            <th scope="col">Eposta</th>
+            <th scope="col">Adres</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="pet : ${pets}">
+            <td th:text="${pets.petOwner.id}"></td>
+            <td th:text="${pets.petOwner.name}"></td>
+            <td th:text="${pets.petOwner.surname}"></td>
+            <td th:text="${pets.petOwner.phone}"></td>
+            <td th:text="${pets.petOwner.email}"></td>
+            <td th:text="${pets.petOwner.address}"></td>
+        </tr>
+
+        </tbody>
+    </table>
+    <br>
+    <a th:href="@{/petpage}" class="btn btn-primary" style="padding-right: 20px; padding-left: 20px">Geri</a>
+</div>
+<br>
+<hr>
+<br>
+
+<div th:replace="fragments :: footer"></div>
+</body>
+</html>
+

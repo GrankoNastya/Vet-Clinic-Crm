@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html  xmlns:th="https://www.thymeleaf.org"
+       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head th:replace="fragments/petFragment :: html_head">
+    <meta charset="UTF-8">
+    <title>Evcil Hayvan Listesi</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+          crossorigin="anonymous">
+
+</head>
+<body>
+
+<div th:replace="fragments/petFragment :: searchMenu"></div>
+
+
+<div class="container-fluid">
+    <h3 style="text-align: left; padding-top: 12px; padding-bottom: 3px">Evcil Hayvan Listesi</h3><hr>
+
+    <div sec:authorize="hasAnyAuthority('ADMIN','USER')">
+        <a th:href="@{/pet/new}" class="btn btn-primary">Kayıt Ekle</a>
+    </div>
+    <br>
+    <table class="table table-hover table-dark">
+        <thead>
+            <tr class="table-active">
+                        <th scope="col">id</th>
+                        <th scope="col">Ad</th>
+                        <th scope="col">Cins</th>
+                        <th scope="col">Tür</th>
+                        <th scope="col">Cinsiyet</th>
+                        <th scope="col">Yaş</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+            </tr>
+        </thead>
+        <tbody>
+        <!--$ işareti model.addAttribute içindeki attributeName parametresine ulaşır-->
+            <tr th:each="pet : ${listOfPets}">
+                        <td th:text="${pet.id}"></td>
+                        <td th:text="${pet.name}"></td>
+                        <td th:text="${pet.species}"></td>
+                        <td th:text="${pet.breed}"></td>
+                        <td th:text="${pet.gender}"></td>
+                        <td th:text="${pet.age}"></td>
+                <td>
+                    <div sec:authorize="hasAnyAuthority('ADMIN','USER')">
+                        <a th:href="@{'/pet/petdetail/' +${pet.id}}" class="btn btn-primary">
+                            İncele
+                        </a>
+                    </div>
+                </td>
+                <td>
+                    <div sec:authorize="hasAnyAuthority('ADMIN','USER')">
+                        <a th:href="@{'/pet/edit/' + ${pet.id}}" class="btn btn-primary">
+                            Güncelle
+                        </a>
+                    </div>
+                </td>
+                <td>
+                    <div sec:authorize="hasAnyAuthority('ADMIN')">  <!--only admin can delete data-->
+                        <a th:href="@{'/pet/delete/' + ${pet.id}}" class="btn btn-primary">
+                            Sil
+                        </a>
+                    </div>
+                </td>
+          <tr>
+        </tbody>
+    </table>
+</div>
+
+<div th:replace="fragments/petFragment :: footer"></div>
+
+</body>
+</html>
+
+

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html  xmlns:th="https://www.thymeleaf.org">
+<head th:replace="fragments/petFragment:: html_head">
+    <meta charset="UTF-8">
+    <title>Evcil Hayvan Listesi</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+          crossorigin="anonymous">
+
+</head>
+<body>
+
+<div th:replace="fragments/petFragment :: searchMenu"></div>
+
+<div class="container-fluid">
+    <div>
+        <br>
+        <h3 style="text-align: left; padding-top: 12px; padding-bottom: 3px">Bulunan Kayıtlı Evcil Hayvanlar</h3><hr>
+    </div>
+
+    <br>
+
+    <table class="table table-hover table-dark">
+        <thead>
+        <tr class="table-active">
+            <th scope="col">id</th>
+            <th scope="col">Ad</th>
+            <th scope="col">Cins</th>
+            <th scope="col">Tür</th>
+            <th scope="col">Cinsiyet</th>
+            <th scope="col">Yaş</th>
+            <th scope="col">Sahip ID</th>
+            <th scope="col">Sahip Adı</th>
+            <th scope="col">Sahip Soyadı</th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+
+        <tr th:each="pet : ${listOfPets}">
+            <td th:text="${pet.id}"></td>
+            <td th:text="${pet.name}"></td>
+            <td th:text="${pet.species}"></td>
+            <td th:text="${pet.breed}"></td>
+            <td th:text="${pet.gender}"></td>
+            <td th:text="${pet.age}"></td>
+            <td th:text="${pet.petOwner.id}"></td>
+            <td th:text="${pet.petOwner.name}"></td>
+            <td th:text="${pet.petOwner.surname}"></td>
+            <td><a th:href="@{'/pet/petdetail/' +${pet.id}}" class="btn btn-primary" >İncele</a></td>
+            <td><a th:href="@{'/pet/edit/' + ${pet.id}}" class="btn btn-primary" style="background-color: lightseagreen">Güncelle</a></td>
+            <td><a th:href="@{'/pet/delete/' + ${pet.id}}" class="btn btn-primary" style="background-color: palevioletred; padding-right: 20px; padding-left: 20px"> Sil</a></td>
+
+        <tr>
+        </tbody>
+    </table>
+    <br>
+    <a th:href="@{/pet/petlistpage}" class="btn btn-primary" style="padding-right: 20px; padding-left: 20px">Geri</a>
+</div>
+
+<div th:replace="fragments/petFragment :: footer"></div>
+
+</body>
+</html>
+
+

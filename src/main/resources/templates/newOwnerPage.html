@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head th:replace="fragments :: html_head">
+    <meta charset="UTF-8">
+    <title>Evcil Hayvan Sahibi Ekle</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+          crossorigin="anonymous">
+</head>
+<body>
+<div th:replace="fragments :: menu"></div>
+<br>
+
+    <div class="container">
+        <div  th:if="${owner.id==null}"><h3 style="color: maroon; text-align: center">Yeni Hayvan Sahibi Ekle</h3></div>
+        <div  th:unless="${owner.id==null}"><h3 style="color: darkcyan; text-align: center"> Hayvan Sahibi Güncelle</h3></div>
+
+        <hr>
+        <br>
+
+        <form action="#" th:action="@{/owner/save}" th:object="${owner}" method="POST">
+
+            <input type="hidden" th:field="*{id}" th:value="${owner.id}">
+
+            <div class="form-group">
+                <label for="pName">Hayvan Sahibinin Adı</label>
+                <input id="pName" type="text" th:field="*{name}" placeholder="Ad" class="form-control mb-4 col-4" required>
+            </div>
+
+            <div class="form-group">
+                <label for="pBreed">Hayvan Sahibinin Soyadı</label>
+                <input id="pBreed" type="text" th:field="*{surname}" placeholder="Soyad" class="form-control mb-4 col-4" required>
+            </div>
+
+            <div class="form-group">
+                <label for="pSpecies">Telefon</label>
+                <input id="pSpecies" type="number" th:field="*{phone}" placeholder="Telefon numarası" class="form-control mb-4 col-4" required>
+            </div>
+
+            <div class="form-group">
+                <label for="pAge">Eposta</label>
+                <input id="pAge" type="text" th:field="*{email}" placeholder="e-mail" class="form-control mb-4 col-4" required>
+            </div>
+
+            <div class="form-group">
+                <label for="Textarea1">Adres</label>
+                <textarea class="form-control" id="Textarea1" rows="3" th:field="*{address}" placeholder="Adres Açıklaması" required>
+                </textarea>
+            </div>
+
+            <br>
+            <button type="submit" class="btn btn-info col-2">KAYDET</button>
+            <a class="btn btn-info col-2"
+               style="background-color: crimson; margin-left: 856px; color: #F2F3F4 "
+               th:href="@{/homepage}">VAZGEÇ</a>
+        </form>
+
+    </div>
+
+
+<br><hr><br>
+<div th:replace="fragments :: footer"></div>
+</body>
+</html>

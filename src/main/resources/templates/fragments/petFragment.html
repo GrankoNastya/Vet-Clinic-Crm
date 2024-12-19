@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html  xmlns:th="https://www.thymeleaf.org">
+<head th:fragment="html_head">
+  <meta charset="UTF-8">
+  <title>VetClinicApp</title>
+  <!-- CSS only -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+        rel="stylesheet"
+        integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+        crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}"/>
+</head>
+<body>
+<div th:fragment="searchMenu">
+
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    &nbsp;
+    <img src="/images/icon.png" width="55" height="85"  alt="">
+    <a class="nav-link" th:href="@{/}"
+       style="font-family: 'Comic Sans MS'; color: crimson; font-size:x-large">Vet Clinic<span class="sr-only"></span></a>&emsp;&emsp;
+    &nbsp;
+    <div class="collapse navbar-collapse" id="navbar">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" th:href="@{/}">Ana Sayfa <span class="sr-only"></span></a>
+        </li>
+        &emsp;&emsp;
+        <li class="nav-item active">
+          <a class="nav-link" th:href="@{/aboutus}">Hakkımızda</a>
+        </li>
+        &emsp;&emsp;
+        <li class="nav-item active">
+          <a class="nav-link" th:href="@{/pet/petlistpage}">Hayvan Listesi</a>
+        </li>
+        &emsp;&emsp;
+        <li class="nav-item active">
+          <a class="nav-link" th:href="@{/owner/ownerlistpage}">Sahip Listesi </a>
+        </li>
+        &emsp;&emsp;
+        <li class="nav-item active">
+          <a class="nav-link" th:href="@{/user/listusers}">Kullanıcılar</a>
+        </li>
+      </ul>&emsp;&emsp;
+
+      <form class="form-inline my-2 my-lg-0" th:action="@{/pet/search}" method="get">
+        <input class="form-control mr-sm-2"
+               type="text" placeholder="Hayvan Adı Giriniz" aria-label="Search" name="name"
+               style="width: 200px; margin-left:30px; display: inline-block;">
+
+        <button class="btn btn-warning" type="submit" style="width:60px; margin-bottom: 3px" >Ara</button>
+      </form>
+      &emsp;&emsp;
+      <div class="nav-item active" style="margin-left: 267px">
+        <form th:action="@{/logout}" method="post">
+          <input type="submit" class="btn btn-danger" value="Çıkış" />
+        </form>
+      </div>
+
+    </div>
+  </nav>
+</div>
+<footer class="footer" th:fragment="footer">
+  <div class="text-center" style="margin-top: 20px; margin-bottom: 5px">
+    <br>
+    <hr>
+    <br>
+    <p>Vet Clinic App Control Panel - Copyright &copy; Ekin Gülsüm Akın</p>
+  </div>
+</footer>
+
+</body>
+</html>

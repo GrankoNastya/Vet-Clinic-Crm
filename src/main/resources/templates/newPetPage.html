@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head th:replace="fragments :: html_head">
+    <meta charset="UTF-8">
+    <title>Evcil Hayvan Ekle</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT"
+          crossorigin="anonymous">
+
+</head>
+<body>
+<div th:replace="fragments :: menu"></div><br>
+
+    <div class="container">
+        <div  th:if="${pet.id==null}"><h3 style="color: darkcyan; text-align: center">Yeni Evcil Hayvan Ekle</h3></div>
+        <div  th:unless="${pet.id==null}"><h3 style="color: darkcyan; text-align: center"> Evcil Hayvan Güncelle</h3></div>
+
+        <hr>
+        <br>
+        <h4 style="color: crimson">Evcil Hayvan Bilgileri</h4><br>
+
+        <!--@:controller içindeki url'e ulaşır
+            $: controller içindeki ulaştığımız metodun parametresi olan modelAttribute'e ulaşır.-->
+
+        <form action="#" th:action="@{/savepet}" th:object="${pet}" method="POST">
+            <input type="hidden" th:field="*{id}" th:value="${pet.id}">
+            <div class="form-group">
+                <label for="pName">Evcil Hayvanın Adı</label>
+                <input id="pName" type="text" th:field="*{name}" placeholder="Name" class="form-control mb-4 col-4" required>
+            </div>
+
+            <div class="form-group">
+                <label for="pBreed">Evcil Hayvanın Türü</label>
+                <input id="pBreed" type="text" th:field="*{species}" placeholder="Cat , Dog , Bird etc.." class="form-control mb-4 col-4" required>
+            </div>
+
+            <div class="form-group">
+                <label for="pSpecies">Evcil Hayvanın Cinsi</label>
+                <input id="pSpecies" type="text" th:field="*{breed}" placeholder="Species" class="form-control mb-4 col-4">
+            </div>
+
+            <div class="form-group">
+                <label for="pAge">Evcil Hayvanın Yaşı</label>
+                <input id="pAge" type="number" th:field="*{age}" placeholder="Age" class="form-control mb-4 col-4">
+            </div>
+
+            <div class="form-group">
+                <label for="pGender">Evcil Hayvanın Cinsiyeti</label>
+                <input id="pGender" type="text" th:field="*{gender}" placeholder="gender" class="form-control mb-4 col-4">
+            </div>
+
+            <div class="form-group">
+                <label for="Textarea1">Genel Sağlık Durumu</label>
+                <textarea class="form-control" id="Textarea1" rows="3" th:field="*{statement}" placeholder="explanation">
+                </textarea>
+            </div><hr><br>
+
+            <h4 style="color: crimson"> Hayvan Sahibi Bilgileri</h4><br>
+
+            <div class="form-group">
+                <div><label>Evcil Hayvanın sahibini seçiniz</label></div><br>
+
+                <!--New "Pet" can be added, only when "Pet Owner" is added-->
+                  <div >
+                      <select th:field="*{petOwner}" class="form-control" required="true" >
+                          <option th:value="0"  selected="selected" >Lütfen Sahip seçiniz</option>
+                          <th:block th:each="owners : ${ownerList}" >
+                              <option  th:text="${owners.name} +'&nbsp;'+ ${owners.surname}" th:value="${owners.id}" />
+                          </th:block>
+                      </select>
+                  </div>
+            </div><br>
+
+                <button type="submit" class="btn btn-info col-2" >KAYDET</button>
+                <a class="btn btn-info col-2"
+                   style="background-color: crimson; margin-left: 856px; color: #F2F3F4 "
+                   th:href="@{/homepage}">VAZGEÇ</a>
+        </form>
+
+    </div>
+<br><hr><br>
+<div th:replace="fragments :: footer"></div>
+</body>
+</html>
