@@ -23,17 +23,17 @@ public class PetController {
     @Autowired
     private IPetOwnerService ownerService;
 
-    //is the save method
+    // Сохранение питомца
     @PostMapping("/pet/save")
     public String savePet(@ModelAttribute("pet") Pet pet) {
-        this.iPetService.save(pet); //save pet to dataBase
+        this.iPetService.save(pet); // Сохранение питомца в базе данных
         return "redirect:/pet/petlistpage";
     }
 
-    //opens the form page for adding a new pet
+    // Открытие формы для добавления нового питомца
     @GetMapping("/pet/new")
     public String showNewPetForm(Model model) {
-        //creating mode attribute to bind form data
+        // Создание атрибута модели для привязки данных формы
         Pet pet = new Pet();
         model.addAttribute("pet", pet);
         List<PetOwner> petOwnerList = ownerService.getAll();
@@ -41,14 +41,14 @@ public class PetController {
         return "pet/newPetPage";
     }
 
-    //used to list Pets in a table
+    // Вывод списка питомцев в таблице
     @GetMapping("/pet/petlistpage")
     public String getPets(Model model) {
         model.addAttribute("listOfPets", iPetService.getAllPets());
-        return "pet/petPage"; //name of html page
+        return "pet/petPage"; // Имя html-страницы
     }
 
-    // used to open "newOwnerPage Form" for update
+    // Открытие формы "newOwnerPage" для редактирования
     @GetMapping("/pet/edit/{id}")
     public String showEditPetForm(@PathVariable("id") Long id, Model model) {
         Pet pet = iPetService.getById(id);
@@ -58,34 +58,33 @@ public class PetController {
         return "pet/newPetPage";
     }
 
-    //used to list Pet Details (owners and some columns) in table
+    // Вывод подробной информации о питомце (владельцах и некоторые столбцы) в таблице
     @GetMapping("/pet/petdetail/{id}")
     public String petDetail(@PathVariable("id") Long id, Model model) {
         Pet pet = iPetService.getById(id);
         model.addAttribute("pets", pet);
 
-        if(pet.getPetOwner()==null){
+        if (pet.getPetOwner() == null) {
             return "pet/petDetailsNullPage";
-        }else{
-            return "pet/petDetailsPage"; //name of html page
+        } else {
+            return "pet/petDetailsPage"; // Имя html-страницы
         }
     }
 
-    //used to delete pet by id
+    // Удаление питомца по идентификатору
     @GetMapping("/pet/delete/{id}")
     public String deletePet(@PathVariable("id") Long id, Model model) {
         iPetService.deleteById(id);
         return "redirect:/pet/petlistpage";
-
     }
 
-    //used to search Pet by name
+    // Поиск питомца по имени
     @GetMapping("/pet/search")
-    public String getByName(String name, Model model){
-        if(name!=null){
-            model.addAttribute("listOfPets",iPetService.getPetsByName(name));
-        }else{
-            model.addAttribute("listOfPets",iPetService.getAllPets());
+    public String getByName(String name, Model model) {
+        if (name != null) {
+            model.addAttribute("listOfPets", iPetService.getPetsByName(name));
+        } else {
+            model.addAttribute("listOfPets", iPetService.getAllPets());
         }
         return "pet/searchPetPage";
     }
